@@ -1,38 +1,82 @@
 import React from 'react'
+import { Button, Modal,Form, Input, TextArea,Icon} from "semantic-ui-react";
 
-const Popup = ({onSend,togglePopup}) => {
-
-    let body='';
-    let to=[];
-
-    const handleToChange=(e)=>{
-        console.log(e.target.value);
+class Popup extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            emailBody:"",
+            recipient:"",
+            emailSubject:""
+        }
+        
+    }
+    handleEmailAddressChange =(e)=>{
+        this.setState({
+            recipient : e.target.value
+        })
+    }
+    handleSubjectChange =(e)=>{
+        this.setState({
+            emailSubject : e.target.value
+        })
+    }
+    handleEmailBodyChange =(e)=>{
+        this.setState({
+            emailBody : e.target.value
+        })
     }
 
-    const handleBodyChange=(e)=>{
-        console.log(e.target.value);
-    }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        const mailObject = this.state;
+        //clearing the text on submit
+        this.setState({
+            emailBody:"",
+            recipient:"",
+            emailSubject:""
+        })
+        //closing the popup
+        this.props.togglePopup();
+        console.log(mailObject);
+      }
 
-    return (
-        <div className='popup'>
-            <div className='popup_inner'>
-            <h1>PopUp is clicked</h1>
-            <form>
-                <div class="mb-3">
-                    <label for="inputEmail">Email address</label>
-                    <input type="email" class="form-to" id="inputEmail1" onChange={handleToChange} />
-                </div>
-                <div class="mb-3">
-                    <label for="inputBody">Body</label><br />
-                    <textarea id="inputText" class="form-text" rows="4" cols="50" onChange={handleBodyChange}></textarea>
-                </div>
-                <button onClick={onSend}>Send</button>
-                <button onClick={togglePopup}>Close</button> 
-            </form>   
-            
-            </div>
-         </div>
-    )
+    render(){
+        return  <Modal
+        centered={true}
+        open={this.props.showPopup}
+        onClose={this.props.togglePopup}
+        size = "small">
+        <Modal.Header className="modal-header">Send a message  <Icon name='close' onClick={this.props.togglePopup}/></Modal.Header>
+        <Modal.Content>
+          <Modal.Description>
+          <Form onSubmit={this.handleSubmit}>
+              <Form.Field inline>
+              <label>Email</label>
+              <Input  onChange={this.handleEmailAddressChange}/>
+              </Form.Field>
+              <Form.Field
+              id='form-input-control-error-email'
+              control={Input}
+              label='Subject'
+              onChange={this.handleSubjectChange}
+              />
+              <Form.Field
+              id='form-textarea-control-opinion'
+              control={TextArea}
+              label='Body'
+              onChange={this.handleEmailBodyChange}
+              />
+              <Form.Field
+              id='form-button-control-public'
+              control={Button}
+              content='Send'
+              />
+          </Form>
+          </Modal.Description>
+        </Modal.Content>
+      </Modal>;
+    }  
 }
 
 export default Popup
