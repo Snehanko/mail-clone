@@ -1,14 +1,41 @@
-const Sidebar = () => {
-    return (
-        <div  className="row">
-            <nav class="flex-column">
-            <a class="nav-link active" aria-current="page" href="#">Create</a>
+import Popup from "./Popup";
+import React from 'react';
+
+
+
+class Sidebar extends React.Component {
+    constructor(props){
+        super(props);
+        this.state={
+            showPopup:false
+        }
+    }
+
+    togglePopup = (e) => {
+        //console.log("element clicked");
+        this.setState((prevState)=>{
+            return {
+                showPopup:!prevState.showPopup
+            }
+        })
+      };
+
+    onSend = (e)=>{
+        alert("Message Sent");
+    }
+
+    render() {
+       return (<div  className="row">
+            <nav className="flex-column">
+            <button className="nav-link active" onClick={this.togglePopup}>Create</button> 
+            {this.state.showPopup?<Popup showPopup={this.state.showPopup} togglePopup={this.togglePopup} onSend={this.onSend}/>:null}
+
             <a class="nav-link" href="#">Inbox</a>
             <a class="nav-link" href="#">Trash</a>
             <a class="nav-link" href="#">Spam</a>
             </nav>
-        </div>
-    )
+        </div>)
+    }
 }
 
 export default Sidebar
