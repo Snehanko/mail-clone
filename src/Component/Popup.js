@@ -15,6 +15,7 @@ class Popup extends React.Component{
         this.setState({
             recipient : e.target.value
         })
+        console.log(" My changes");
     }
     handleSubjectChange =(e)=>{
         this.setState({
