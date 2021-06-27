@@ -30,9 +30,9 @@ class Sidebar extends React.Component {
             <button className="nav-link active" onClick={this.togglePopup}>Create</button> 
             {this.state.showPopup?<Popup showPopup={this.state.showPopup} togglePopup={this.togglePopup} onSend={this.onSend}/>:null}
 
-            <a class="nav-link">Inbox</a>
-            <a class="nav-link">Trash</a>
-            <a class="nav-link">Spam</a>
+            <a className="nav-link">Inbox</a>
+            <a className="nav-link">Trash</a>
+            <a className="nav-link">Spam</a>
             </nav>
         </div>)
     }
