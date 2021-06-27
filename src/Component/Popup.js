@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Modal,Form, Input, TextArea,Icon} from "semantic-ui-react";
 
 class Popup extends React.Component{
+
     constructor(props){
         super(props);
         this.state={
@@ -15,7 +16,8 @@ class Popup extends React.Component{
         this.setState({
             recipient : e.target.value
         })
-        console.log(" My changes");
+
+        console.log("Email changed");
     }
     handleSubjectChange =(e)=>{
         this.setState({
